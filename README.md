@@ -34,16 +34,14 @@ conda env create -f environment.yml
 
 The training process with default parameters requires a GPU card with at least 10GB of memory.
 
-Run `train_chembl_baseline.py` using the following command:
+Run `train.py` using the following command:
 ```bash
-CUDA_VISIBLE_DEVICES=<gpu_num> python train_chembl_baseline.py <output_dir> --show_progressbar
+python train.py <output_dir> --show_progressbar
 ```
 - the `gpu_num` indicates which gpu you want to run the code
 - the `output_dir` is the directory you want to store the trained model
 
-Other configurations need to be changed inside `train_chembl_baseline.py`, including model settings and the data directory.
 
-It takes about 70 hours to run the training script with default parameters using a single 2080Ti.
 
 ## Using a trained PGMG model to generate molecules
 
@@ -80,20 +78,6 @@ The 3d position in `.posp` files will first be used to calculate the Euclidean d
 
 See the Supplemental Information of our paper for detailed descriptions.
 
-**How to calculate shortest-path distances**: 
-The shortest path between pharmacophore point `a` and `b` is calculated as $D_{a,b} = D_{inter_{a,b}}+D_{intra_{a}}+D_{intra_{b}}$.
-
-$D_{inter}$ is the sum of the lengths of each bond on the shortest path between two pharmacophore points, where the length of a single covalent single bond is set to 1, a double bond 0.87, an aromatic bond 0.91, a triple bond 0.78. 
-
-$D_{intra}$ is the distance between the center of the pharmacophore point and the edge of it. If the pharmacophore is a ring, then the distance is calculated as `0.2*N`, where N is number of heavy atoms in the pharmacophore point.
-
-For example, the shortest-path distances between A-B and A-C in the picture below can be calculated as:
-
-$$ D_{A,B}=D_{inter_{A,B}}+D_{intra_A}=(1+0.87)+(0.2*6)=3.07 $$
-
-$$ D_{A,C}=D_{inter_{A,C}}+D_{intra_A}=(1+1+0.87+1+1+0.91+0.91+0.91)+(0.2*6)=8.8 $$
-
-<div style="text-align:center"> <img width="20%" src="pics/sp_example.png"> </div>
 
 
 ### Generate
@@ -126,7 +110,7 @@ To run generation on the demo input:
 python generate.py data/phar_demo1.edgep demo_result/ weights/chembl_fold0_epoch32.pth weights/tokenizer.pkl --filter --device cpu
 ```
 
-**We provide the weights file acquired using `train_chembl_baseline.py` in the [release page](https://github.com/CSUBioGroup/PGMG/releases/tag/v1.0).** Please unzip it in the root directory.
+**We provide the weights file acquired using `train.py` in the [release page](https://github.com/CSUBioGroup/PGMG/releases/tag/v1.0).** Please unzip it in the root directory.
 
 **The current model only support a maximum of 8 pharmacophore points in a single hypotheis.** If you want to increase the maximum number, a possible way is to re-train the model with increased number of randomly selected pharmacophore elements and a larger `MAX_NUM_PP_GRAPHS`.
 
@@ -154,6 +138,7 @@ dgl_graphs = [dgl_graph, dgl_graph]
 match_scores = get_match_score(dgl_graphs, smiles_list,  n_workers=8, timeout=20)  # [0.67, 1.0]
 ```
 
+## References
 
 ----
 
