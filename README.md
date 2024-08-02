@@ -1,7 +1,6 @@
 
-# Hot2Mol
+# Designing target-specific PPI inhibitors with hot-spot-guided deep generative model
 
-This repository contains the PyTorch implementation of *Designing target-specific PPI inhibitors with hot-spot-guided deep generative model*. 
 
 
 ## Overview
