@@ -1,9 +1,6 @@
 
 # Hot2Mol
 
-----
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
-
 This repository contains the PyTorch implementation of *Designing target-specific PPI inhibitors with hot-spot-guided deep generative model*. 
 
 Through the guidance of pharmacophore, PGMG provides a flexible strategy to generate bioactive molecules with structural diversity in various scenarios using a trained variational autoencoder.
