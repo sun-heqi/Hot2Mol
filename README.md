@@ -3,15 +3,13 @@
 
 This repository contains the PyTorch implementation of *Designing target-specific PPI inhibitors with hot-spot-guided deep generative model*. 
 
-Through the guidance of pharmacophore, PGMG provides a flexible strategy to generate bioactive molecules with structural diversity in various scenarios using a trained variational autoencoder.
-
 
 ## Overview
 
-PGMG aims to provide a flexible strategy to generate bioactive molecules with structural diversity in various scenarios, especially when the activity data is scarce.
+Protein-protein interactions (PPIs) play crucial roles in cellular functions and represent compelling targets for drug discovery. However, developing effective small molecule inhibitors for PPIs is challenging due to their flat and wide interfaces. To address this challenge, we propose Hot2Mol, a deep learning framework designed to generate PPI inhibitors by mimicking the pharmacophores of hot-spot residues, thereby achieving high affinity and selectivity. Hot2Mol utilizes E(n)-equivariant graph neural networks to accurately encode 3D molecular structures and pharmacophore patterns. A conditional transformer is used to generate molecules while optimizing drug-like properties. 
 
-PGMG only requires a pharmacophore hypothesis as input. The hypothesis can be constructed using only a few ligands or the structure of the receptor or the ligand-receptor complex.
-The pharmacophore hypothesis will be transformed into a weighted complete graph based on the shortest-path distance and feed into the model. The model will then rapidly generate a large number of molecules that satisfy the conditions.
+Hot2Mol only requires a pharmacophore hypothesis as input. The hypothesis can be constructed by sampling pharmacophores from hot-spot residues at PPI interfaces. The hot-spot residues may be computed using docking methods like HawkDock, or obatained from literatures.
+
 
 ![model_framework.png](pics%2Fmodel_framework.png)
 
