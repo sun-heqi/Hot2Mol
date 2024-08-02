@@ -8,8 +8,6 @@ This repository contains the PyTorch implementation of *Designing target-specifi
 
 Protein-protein interactions (PPIs) play crucial roles in cellular functions and represent compelling targets for drug discovery. However, developing effective small molecule inhibitors for PPIs is challenging due to their flat and wide interfaces. To address this challenge, we propose Hot2Mol, a deep learning framework designed to generate PPI inhibitors by mimicking the pharmacophores of hot-spot residues, thereby achieving high affinity and selectivity. Hot2Mol utilizes E(n)-equivariant graph neural networks to accurately encode 3D molecular structures and pharmacophore patterns. A conditional transformer is used to generate molecules while optimizing drug-like properties. 
 
-Hot2Mol only requires a pharmacophore hypothesis as input. The hypothesis can be constructed by sampling pharmacophores from hot-spot residues at PPI interfaces. The hot-spot residues may be computed using docking methods like HawkDock, or obatained from literatures.
-
 
 ![model_framework.png](pics%2Fmodel_framework.png)
 
@@ -51,6 +49,9 @@ It takes about 70 hours to run the training script with default parameters using
 
 
 ### Prepare the pharmacophore hypotheses
+
+Hot2Mol only requires a pharmacophore hypothesis as input. The hypothesis can be constructed by sampling pharmacophores from hot-spot residues at PPI interfaces. The hot-spot residues may be computed using docking methods like HawkDock, or obatained from literatures.
+
 
 First of all, you need some pharmacophore hypotheses. A pharmacophore is defined as a set of chemical features and their spatial information that is necessary for a drug to bind to a target and there are many ways to acquire one. 
 
