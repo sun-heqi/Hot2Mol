@@ -4,8 +4,6 @@
 ----
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
 
-https://www.nature.com/articles/s41467-023-41454-9
-
 This repository contains the PyTorch implementation of *A pharmacophore-guided deep learning approach for bioactive molecular generation*. 
 
 Through the guidance of pharmacophore, PGMG provides a flexible strategy to generate bioactive molecules with structural diversity in various scenarios using a trained variational autoencoder.
@@ -31,7 +29,6 @@ The pharmacophore hypothesis will be transformed into a weighted complete graph 
 - tqdm==4.64.1
 - einops==0.6.0
 
-> If you encounter `RuntimeError: mat1 and mat2 shapes cannot be multiplied`, please check the version of `fairseq` first. It should be `10.2`.
 
 ### Creating a new environment in conda
 We recommend using `conda` to manage the environment. 
