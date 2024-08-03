@@ -74,7 +74,7 @@ The output is a `.posp` file containing the pharmacophore hypotesis.
 
 To build pharmacophore hypothesis for the demo input:
 ```bash
-python pharma_extract.py data/6epm_KRAS.pdb LEU 48 ILE 19 ALA 14 6epm_KRAS.posp
+python pharma_extract.py data/6epm_KRAS.pdb ARG 102 TYR 64 TYR 32 6epm_KRAS.posp
 ```
 
 ### Generate
