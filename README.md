@@ -14,14 +14,14 @@ Protein-protein interactions (PPIs) play crucial roles in cellular functions and
 
 ## Requirements
 - python==3.8
-- torch==1.12.1+cu102
-- rdkit==2022.09.1
-- dgl-cuda10.2==0.9.1
+- torch==1.12.1+cu116
+- rdkit==2023.9.2
+- dgl-cuda11.1=0.9.1
 - fairseq==0.10.2
-- numpy==1.23.5
-- pandas==1.5.2
-- tqdm==4.64.1
-- einops==0.6.0
+- numpy==1.23.0
+- pandas==2.0.3
+- tqdm==4.65.0
+- einops==0.7.0
 
 
 ### Creating a new environment in conda
@@ -37,14 +37,13 @@ The training process with default parameters requires a GPU card with at least 1
 
 Run `train.py` using the following command:
 ```bash
-python train.py <output_dir> --show_progressbar
+python train.py <output_dir> --device cuda:0 --show_progressbar
 ```
-- the `gpu_num` indicates which gpu you want to run the code
 - the `output_dir` is the directory you want to store the trained model
 
 
 
-## Using a trained PGMG model to generate molecules
+## Using a trained Hot2Mol model to generate molecules
 
 
 ### Prepare the pharmacophore hypotheses
@@ -64,8 +63,7 @@ Apart from building it yourself, you can also acquire them by searching the lite
 
 The pharmacophore hypotheses need to be converted to a fully-connected graph and should be provided in one of the two formats:
 
-- the `.posp` format where the type of the pharmacophore points and the 3d positions are provided, see `data/phar_demo2.posp` for example. 
-- the `.edgep` format where the type of the pharmacophore points and the shortest-path-based distances between each point are provided, see `data/phar_demo1.edgep` for example. 
+- the `.posp` format where the type of the pharmacophore points and the 3d positions are provided, see `data/IL-2:IL-2R.posp` for example. 
 
 **Pharmacophore types** supported by default:
 - AROM: aromatic ring
@@ -77,9 +75,6 @@ The pharmacophore hypotheses need to be converted to a fully-connected graph and
 
 The 3d position in `.posp` files will first be used to calculate the Euclidean distances between each point and then the distances will be mapped to the shortest-path-based distances.
 
-See the Supplemental Information of our paper for detailed descriptions.
-
-
 
 ### Generate
 
@@ -90,10 +85,10 @@ usage:
 python generate.py [-h] [--n_mol N_MOL] [--device DEVICE] [--filter] [--batch_size BATCH_SIZE] [--seed SEED] input_path output_dir model_path tokenizer_path
 
 positional arguments:
-  input_path            the input file path. If it is a directory, then every file ends with `.edgep` or `.posp` will be processed
+  input_path            the input file path. If it is a directory, then every file ends with `.posp` will be processed
   output_dir            the output directory
   model_path            the weights file (xxx.pth)
-  tokenizer_path        the saved tokenizer (tokenizer.pkl)
+  tokenizer_path        the saved tokenizers (tokenizer_r_iso.pkl, tokenizer_delta_qeppi.pkl)
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -108,43 +103,20 @@ The output is a `.txt` file containing the generated SMILES. It takes about 30 s
 
 To run generation on the demo input:
 ```bash
-python generate.py data/phar_demo1.edgep demo_result/ weights/chembl_fold0_epoch32.pth weights/tokenizer.pkl --filter --device cpu
+python generate.py ./data/IL-2:IL-2R.posp ./results ./pretrained_model/epoch32.pth ./pretrained_model --filter --device cuda:0 --seed 123
 ```
 
-**We provide the weights file acquired using `train.py` in the [release page](https://github.com/CSUBioGroup/PGMG/releases/tag/v1.0).** Please unzip it in the root directory.
+**We provide the weights file acquired using `train.py` in the [release page](https://github.com/sun-heqi/Hot2Mol/releases/tag/v1.0).** Please unzip it in the root directory.
 
 **The current model only support a maximum of 8 pharmacophore points in a single hypotheis.** If you want to increase the maximum number, a possible way is to re-train the model with increased number of randomly selected pharmacophore elements and a larger `MAX_NUM_PP_GRAPHS`.
 
 
-## Evaluations
-
-Use `get_match_score(smiles,dgl_graph)` in `utils.match_eval` to calculate the match score between molecules and pharmacophores. 
-
-For example:
-
-```python
-from pathlib import Path
-
-from utils.file_utils import load_phar_file
-from utils.match_eval import get_match_score
-
-smiles_list = ['Cc1ccc(C(=O)Nc2c(C(N)=O)sc3ncccc23)o1', 'O=C(NC1CCCCC1)c1cc2c(nc(O)c3ccccc32)s1']
-
-file_path = Path('data/phar_demo1.edgep')
-
-dgl_graph = load_phar_file(file_path)
-
-dgl_graphs = [dgl_graph, dgl_graph]
-
-match_scores = get_match_score(dgl_graphs, smiles_list,  n_workers=8, timeout=20)  # [0.67, 1.0]
-```
 
 ## References
-
+Thanks for the following works for giving us inspirations!
 ----
 
 ## License
 
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
-For commercial use, please contact [limin@csu.edu.cn](mailto:limin@csu.edu.cn).
