@@ -29,6 +29,7 @@ We recommend using `conda` to manage the environment.
 
 ```bash
 conda env create -f environment.yml
+conda activate Hot2Mol
 ```
 
 ## Training
