@@ -43,24 +43,11 @@ python train.py <output_dir> --device cuda:0 --show_progressbar
 
 ### Prepare the pharmacophore hypotheses
 
-Hot2Mol only requires a pharmacophore hypothesis as input. The hypothesis can be constructed by sampling pharmacophores from hot-spot residues at PPI interfaces. The hot-spot residues may be computed using docking methods like HawkDock, or obatained from literatures.
+Hot2Mol requires a pharmacophore hypothesis as input. Construct the hypothesis by sampling pharmacophores from hot-spot residues on the target protein of the PPI complex. Hot-spot residues can be computed using docking methods like [HawkDock](http://cadd.zju.edu.cn/hawkdock/), or obatained from literatures.
 
+A pharmacophore hypothesis should be provided in `.posp` format, which includes the type of pharmacophore feature in the first column and 3D coordinates in the last three columns. See `data/IL-2:IL-2R.posp` for an example.
 
-First of all, you need some pharmacophore hypotheses. A pharmacophore is defined as a set of chemical features and their spatial information that is necessary for a drug to bind to a target and there are many ways to acquire one. 
-
-If you have a biochemistry background, we strongly encourage you to build it yourself by stacking active ligands or analyzing the receptor structure. There are also many tools available. 
-And you can always adjust the input hypothesis according to the results.
-
-Apart from building it yourself, you can also acquire them by searching the literature or just randomly sampling 3-6 pharmacophore elements from a reference ligand to build some hypotheses and filtering the generated molecules afterwards.
-
-
-### Format the hypotheses
-
-The pharmacophore hypotheses need to be converted to a fully-connected graph and should be provided in one of the two formats:
-
-- the `.posp` format where the type of the pharmacophore points and the 3d positions are provided, see `data/IL-2:IL-2R.posp` for example. 
-
-**Pharmacophore types** supported by default:
+**Supported pharmacophore types**:
 - AROM: aromatic ring
 - POSC: cation
 - HACC: hydrogen bond acceptor
@@ -68,12 +55,32 @@ The pharmacophore hypotheses need to be converted to a fully-connected graph and
 - HYBL: hydrophobic group (ring)
 - LHYBL: hydrophobic group (non-ring)
 
-The 3d position in `.posp` files will first be used to calculate the Euclidean distances between each point and then the distances will be mapped to the shortest-path-based distances.
 
+### Build the hypotheses
+
+Use the `pharma_extract.py` to generate the pharmacophore hypothesis.
+
+usage:
+```text
+python pharma_extract.py [-h] pdb_file residues output_file
+
+positional arguments:
+  pdb_file            Path to the PDB file of the target protein within the PPI complex.
+  residues            Residues in the format RESIDUE_NAME RESIDUE_NUMBER (e.g., LYS 7).
+  output_file         Path to the output .posp file.
+```
+
+The output is a `.posp` file containing the pharmacophore hypotesis. 
+
+**Example**
+To build pharmacophore hypothesis for the demo input:
+```bash
+python pharma_extract.py data/pdbfile.pdb LEU 48 ILE 19 ALA 14 IL-2:IL-2R.posp
+```
 
 ### Generate
 
-Use the `generate.py` to generate molecules.
+Use `generate.py` to generate molecules.
 
 usage:
 ```text
@@ -94,20 +101,21 @@ optional arguments:
   --seed SEED
 ```
 
-The output is a `.txt` file containing the generated SMILES.
+The output is a `.txt` file containing the generated SMILES strings.
 
+**Example**
 To run generation on the demo input:
 ```bash
 python generate.py ./data/IL-2:IL-2R.posp ./results ./pretrained_model/epoch32.pth ./pretrained_model --filter --device cuda:0 --seed 123
 ```
 
-**We provide the weights file acquired using `train.py` in the [release page](https://github.com/sun-heqi/Hot2Mol/releases/tag/v1.0).**
+**Note:** The weights file acquired using `train.py` is available on the [release page](https://github.com/sun-heqi/Hot2Mol/releases/tag/v1.0).
 
-**The current model supports a maximum of 8 pharmacophore features in a single hypothesis.** If you wish to increase this limit, you can retrain the model with a higher number of randomly selected pharmacophore elements and a larger MAX_NUM_PP_GRAPHS.
+The current model supports a maximum of 8 pharmacophore features in a single hypothesis. If you wish to increase this limit, you can retrain the model with a higher number of randomly selected pharmacophore elements and a larger `MAX_NUM_PP_GRAPHS`.
 
 
 ## Acknowledgements
-This implementation is inspired and partially based on earlier works [1], [2]. Thanks for giving us inspirations!
+This implementation is inspired and partially based on earlier works [1], [2]. Thank you for the inspiration!
 
 
 ## References
