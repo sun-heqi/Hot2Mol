@@ -33,6 +33,9 @@ def extract_pharmacophore_features(pdb_filename, specific_residues):
 
     # Collect pharmacophore features for the specified residues
     results = defaultdict(list)
+    total_sampled_features = 0
+    max_features = 8
+
     for res_name, res_num in specific_residues:
         specific_atom_indices = []
         for atom in mol.GetAtoms():
@@ -43,24 +46,35 @@ def extract_pharmacophore_features(pdb_filename, specific_residues):
         # Filter features related to the current residue
         specific_features = [feat for feat in all_features if feat.GetFamily() in desired_families and any(atom_idx in specific_atom_indices for atom_idx in feat.GetAtomIds())]
 
-        # Randomly select up to 3 features
-        selected_features = random.sample(specific_features, min(3, len(specific_features)))
+        # Calculate the number of features to sample for this residue
+        remaining_features = max_features - total_sampled_features
+        num_to_sample = min(remaining_features, 3, len(specific_features))
+
+        # Randomly select the required number of features
+        selected_features = random.sample(specific_features, num_to_sample)
+        total_sampled_features += len(selected_features)
 
         for feat in selected_features:
             pos = feat.GetPos()
             mapped_family = feature_mapping.get(feat.GetFamily(), feat.GetFamily())
             results[f"{res_name} {res_num}"].append((mapped_family, pos.x, pos.y, pos.z))
 
+        if total_sampled_features >= max_features:
+            break
+
     return results
 
 def main():
     parser = argparse.ArgumentParser(description='Extract pharmacophore features from specific residues in a PDB file.')
-    parser.add_argument('pdb_file', type=str, help='Path to the PDB file.')
-    parser.add_argument('residues', type=str, nargs='+', help='Residues in the format RESIDUE_NAME RESIDUE_NUMBER (e.g., LYS 7).')
+    parser.add_argument('pdb_file', type=str, help='Path to the PDB file of the target protein within the protein-protein interaction (PPI) complex.')
+    parser.add_argument('residues', type=str, nargs='+', help='Residues in the format RESIDUE_NAME RESIDUE_NUMBER (e.g., LYS 7). Maximum of 3 residues allowed.')
     parser.add_argument('output_file', type=str, help='Path to the output .posp file.')
 
     args = parser.parse_args()
 
+    if len(args.residues) // 2 > 3:
+        raise ValueError("A maximum of 3 residues are allowed.")
+    
     pdb_filename = args.pdb_file
     specific_residues = [(args.residues[i], int(args.residues[i+1])) for i in range(0, len(args.residues), 2)]
     output_file = args.output_file
