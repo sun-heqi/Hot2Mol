@@ -34,7 +34,6 @@ Run `train.py` using the following command:
 ```bash
 python train.py <output_dir> --device cuda:0 --show_progressbar
 ```
-- the `output_dir` is the directory you want to store the trained model
 
 
 
@@ -73,6 +72,7 @@ positional arguments:
 The output is a `.posp` file containing the pharmacophore hypotesis. 
 
 **Example**
+
 To build pharmacophore hypothesis for the demo input:
 ```bash
 python pharma_extract.py data/pdbfile.pdb LEU 48 ILE 19 ALA 14 IL-2:IL-2R.posp
@@ -104,6 +104,7 @@ optional arguments:
 The output is a `.txt` file containing the generated SMILES strings.
 
 **Example**
+
 To run generation on the demo input:
 ```bash
 python generate.py ./data/IL-2:IL-2R.posp ./results ./pretrained_model/epoch32.pth ./pretrained_model --filter --device cuda:0 --seed 123
