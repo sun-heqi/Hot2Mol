@@ -71,7 +71,6 @@ positional arguments:
 
 The output is a `.posp` file containing the pharmacophore hypotesis. 
 
-**Example**
 
 To build pharmacophore hypothesis for the demo input:
 ```bash
@@ -103,7 +102,6 @@ optional arguments:
 
 The output is a `.txt` file containing the generated SMILES strings.
 
-**Example**
 
 To run generation on the demo input:
 ```bash
