@@ -2,12 +2,9 @@
 # Hot2Mol
 
 
+TThis is a repository of our paper "Designing target-specific PPI inhibitors with hot-spot-guided deep generative model". 
 
-## Overview
-
-This repository contains the PyTorch implementation of *Designing target-specific PPI inhibitors with hot-spot-guided deep generative model*. 
-
-Protein-protein interactions (PPIs) play crucial roles in cellular functions and represent compelling targets for drug discovery. However, developing effective small molecule inhibitors for PPIs is challenging due to their flat and wide interfaces. To address this challenge, we propose Hot2Mol, a deep learning framework designed to generate PPI inhibitors by mimicking the pharmacophores of hot-spot residues, thereby achieving high affinity and selectivity. Hot2Mol utilizes E(n)-equivariant graph neural networks to accurately encode 3D molecular structures and pharmacophore patterns. A conditional transformer is used to generate molecules while optimizing drug-like properties. 
+Protein-protein interactions (PPIs) play crucial roles in cellular functions and represent compelling targets for drug discovery. However, developing effective small molecule inhibitors for PPIs is challenging due to their flat and wide interfaces. To address this challenge, we propose Hot2Mol, a deep learning framework designed to generate PPI inhibitors by mimicking the pharmacophores of hot-spot residues, thereby achieving high affinity and selectivity.
 
 
 ![model_framework.png](pics%2Fmodel_framework.png)
@@ -25,7 +22,6 @@ Protein-protein interactions (PPIs) play crucial roles in cellular functions and
 
 
 ### Creating a new environment in conda
-We recommend using `conda` to manage the environment. 
 
 ```bash
 conda env create -f environment.yml
@@ -33,8 +29,6 @@ conda activate Hot2Mol
 ```
 
 ## Training
-
-The training process with default parameters requires a GPU card with at least 10GB of memory.
 
 Run `train.py` using the following command:
 ```bash
@@ -100,16 +94,16 @@ optional arguments:
   --seed SEED
 ```
 
-The output is a `.txt` file containing the generated SMILES. It takes about 30 seconds to generate 10,000 molecules using a single 2080Ti, and about 10 minutes if using CPUs.
+The output is a `.txt` file containing the generated SMILES.
 
 To run generation on the demo input:
 ```bash
 python generate.py ./data/IL-2:IL-2R.posp ./results ./pretrained_model/epoch32.pth ./pretrained_model --filter --device cuda:0 --seed 123
 ```
 
-**We provide the weights file acquired using `train.py` in the [release page](https://github.com/sun-heqi/Hot2Mol/releases/tag/v1.0).** Please unzip it in the root directory.
+**We provide the weights file acquired using `train.py` in the [release page](https://github.com/sun-heqi/Hot2Mol/releases/tag/v1.0).**
 
-**The current model only support a maximum of 8 pharmacophore points in a single hypotheis.** If you want to increase the maximum number, a possible way is to re-train the model with increased number of randomly selected pharmacophore elements and a larger `MAX_NUM_PP_GRAPHS`.
+**The current model supports a maximum of 8 pharmacophore features in a single hypothesis.** If you wish to increase this limit, you can retrain the model with a higher number of randomly selected pharmacophore elements and a larger MAX_NUM_PP_GRAPHS.
 
 
 ## Acknowledgements
