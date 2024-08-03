@@ -71,7 +71,7 @@ The pharmacophore hypotheses need to be converted to a fully-connected graph and
 The 3d position in `.posp` files will first be used to calculate the Euclidean distances between each point and then the distances will be mapped to the shortest-path-based distances.
 
 
-## Generate
+### Generate
 
 Use the `generate.py` to generate molecules.
 
