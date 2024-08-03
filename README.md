@@ -42,9 +42,9 @@ python train.py <output_dir> --device cuda:0 --show_progressbar
 
 ### Prepare the pharmacophore hypotheses
 
-Hot2Mol requires a pharmacophore hypothesis as input. Construct the hypothesis by sampling pharmacophores from hot-spot residues on the target protein of the PPI complex. Hot-spot residues can be computed using docking methods like [HawkDock](http://cadd.zju.edu.cn/hawkdock/), or obatained from literatures.
+Hot2Mol requires a pharmacophore hypothesis as input. Construct the hypothesis by sampling pharmacophores from the top 3 hot-spot residues on the target protein of the PPI complex. Hot-spot residues can be computed using docking methods like [HawkDock](http://cadd.zju.edu.cn/hawkdock/), or obatained from literatures.
 
-A pharmacophore hypothesis should be provided in `.posp` format, which includes the type of pharmacophore feature in the first column and 3D coordinates in the last three columns. See `data/6epm_KRAS.posp` for an example.
+A pharmacophore hypothesis should be provided in `.posp` format, which includes the type of pharmacophore feature in the first column and 3D coordinates in the last three columns. See `data/1z92_IL2R.posp` for an example.
 
 **Supported pharmacophore types**:
 - AROM: aromatic ring
@@ -74,7 +74,7 @@ The output is a `.posp` file containing the pharmacophore hypotesis.
 
 To build pharmacophore hypothesis for the demo input:
 ```bash
-python pharma_extract.py data/6epm_KRAS.pdb ARG 102 TYR 64 TYR 32 6epm_KRAS.posp
+python pharma_extract.py data/1z92_IL2R.pdb ARG 36 LEU 42 HIE 120 1z92_IL2R.posp
 ```
 
 ### Generate
@@ -105,7 +105,7 @@ The output is a `.txt` file containing the generated SMILES strings.
 
 To run generation on the demo input:
 ```bash
-python generate.py data/6epm_KRAS.posp results pretrained_model/epoch32.pth pretrained_model --filter --device cuda:0 --seed 123
+python generate.py data/1z92_IL2R.posp results pretrained_model/epoch32.pth pretrained_model --filter --device cuda:0 --seed 123
 ```
 
 **Note:** The weights file acquired using `train.py` is available on the [release page](https://github.com/sun-heqi/Hot2Mol/releases/tag/v1.0).
