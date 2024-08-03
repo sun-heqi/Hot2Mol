@@ -111,12 +111,13 @@ python generate.py ./data/IL-2:IL-2R.posp ./results ./pretrained_model/epoch32.p
 **The current model only support a maximum of 8 pharmacophore points in a single hypotheis.** If you want to increase the maximum number, a possible way is to re-train the model with increased number of randomly selected pharmacophore elements and a larger `MAX_NUM_PP_GRAPHS`.
 
 
+## Acknowledgements
+This implementation is inspired and partially based on earlier works [1], [2]. Thanks for giving us inspirations!
+
 
 ## References
-Thanks for the following works for giving us inspirations!
-----
 
-## License
-
-This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+* [1] Zhu, Huimin, et al. "A pharmacophore-guided deep learning approach for bioactive molecular generation." Nature Communications 14.1 (2023): 6234.
+    
+* [2] Yoshida, Shuhei, et al. "Peptide-to-small molecule: a pharmacophore-guided small molecule lead generation strategy from high-affinity macrocyclic peptides." Journal of Medicinal Chemistry 65.15 (2022): 10655-10673.   
 
