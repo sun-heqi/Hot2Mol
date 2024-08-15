@@ -2,7 +2,7 @@
 # Hot2Mol
 
 
-This is a repository of our paper "Designing target-specific PPI inhibitors with hot-spot-guided deep generative model". 
+This is a repository of our paper "De novo design of drug-like protein-protein interaction inhibitors using hot-spot-guided generative deep learning". 
 
 Protein-protein interactions (PPIs) play crucial roles in cellular functions and represent compelling targets for drug discovery. However, developing effective small molecule inhibitors for PPIs is challenging due to their flat and wide interfaces. To address this challenge, we propose Hot2Mol, a deep learning framework designed to generate PPI inhibitors by mimicking the pharmacophores of hot-spot residues, thereby achieving high affinity and selectivity.
 
