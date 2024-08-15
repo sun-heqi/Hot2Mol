@@ -114,7 +114,7 @@ The current model supports a maximum of 8 pharmacophore features in a single hyp
 
 
 ## Acknowledgements
-This implementation is inspired and partially based on earlier works [1], [2]. Thank you for the inspiration!
+This implementation is inspired and partially based on earlier works [1], [2].
 
 
 ## References
