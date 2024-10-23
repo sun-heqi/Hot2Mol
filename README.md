@@ -20,7 +20,7 @@ conda activate Hot2Mol
 
 ## Training
 
-Unzip the `data.zip` folder to get the training and validation data.
+Unzip the `Data.zip` folder to get the training and validation data.
 
 Run `train.py` using the following command:
 ```bash
