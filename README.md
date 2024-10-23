@@ -39,9 +39,9 @@ Save to `Hot2Mol/pretrained_model` folder
 
 ### Prepare pharmacophore hypotheses
 
-Hot2Mol requires a pharmacophore hypothesis of "hot-spot" residues as input. Construct the hypothesis by sampling pharmacophores from the top-3 hot-spot residues identified using docking methods like [HawkDock](http://cadd.zju.edu.cn/hawkdock/), which computes residue-wise binding energy with MM/GBSA. Hot-spot residues can also be obtained from relevant literature.
+The input to Hot2Mol should be a pharmacophore hypothesis based on the "hot-spot" residues of a PPI target. The first step is to identify the top three hot-spot residues. This can be achieved using docking methods such as [HawkDock](http://cadd.zju.edu.cn/hawkdock/), which calculates residue-specific binding energies via MM/GBSA. From these results, the residues contributing most to binding energy can be selected. Alternatively, hot-spot residues can be identified through literature research. For instance, in the MDM2/p53 interaction, the key hot-spots are Leu26, Trp23, and Phe19 on the p53 peptide.
 
-A pharmacophore hypothesis should be provided in `.posp` format, which includes the type of pharmacophore feature in the first column and spatial coordinates in the last three columns. See `data/1z92_IL2R.posp` for an example.
+A pharmacophore hypothesis should be provided in `.posp` format, which includes the type of pharmacophore feature in the first column and 3D coordinates in the last three columns. See `data/1z92_IL2R.posp` for an example.
 
 **Supported pharmacophore types**:
 - AROM: aromatic ring
@@ -54,7 +54,7 @@ A pharmacophore hypothesis should be provided in `.posp` format, which includes 
 
 ### Build the hypotheses
 
-Use the `pharma_extract.py` to generate a pharmacophore hypothesis for hot-spot residues. 
+Use the `pharma_extract.py` to generate a pharmacophore hypothesis for given hot-spot residues. 
 
 usage:
 ```text
@@ -68,8 +68,7 @@ positional arguments:
 
 The output is a `.posp` file containing the pharmacophore hypotesis. 
 
-
-To build pharmacophore hypothesis for the demo input:
+For example, to generate a pharmacophore hypothesis for the demo input (Arg36, Leu42, and Hie120 on IL2R of the IL2/IL2R complex, PDB ID: 1Z92), use the following command:
 ```bash
 python pharma_extract.py data/1z92_IL2R.pdb ARG 36 LEU 42 HIE 120 data/1z92_IL2R.posp
 ```
@@ -86,7 +85,7 @@ positional arguments:
   input_path            the input file path. If it is a directory, then every file ends with `.posp` will be processed
   output_dir            the output directory
   model_path            the weights file (xxx.pth)
-  tokenizer_path        the saved tokenizers (tokenizer_r_iso.pkl, tokenizer_delta_qeppi.pkl)
+  tokenizer_path        the tokenizers (tokenizer_r_iso.pkl, tokenizer_delta_qeppi.pkl)
 
 optional arguments:
   -h, --help            show this help message and exit
