@@ -36,12 +36,14 @@ python train.py <output_dir> --device cuda:0 --show_progressbar
 Download the model files from the [release page](https://github.com/sun-heqi/Hot2Mol/releases/tag/v1.0).
 Save to `Hot2Mol/pretrained_model` folder
 
+Unzip `Test_PPI.zip` to obtain all testing PPI target structures. 
+
 
 ### Prepare pharmacophore hypotheses
 
 The input to Hot2Mol should be a pharmacophore hypothesis based on the "hot-spot" residues of a PPI target. The first step is to identify the top three hot-spot residues. This can be achieved using docking methods such as [HawkDock](http://cadd.zju.edu.cn/hawkdock/), which calculates residue-specific binding energies via MM/GBSA. From these results, the residues contributing most to binding energy can be selected. Alternatively, hot-spot residues can be identified through literature research. For instance, in the MDM2/p53 interaction, the key hot-spots are Leu26, Trp23, and Phe19 on the p53 peptide.
 
-A pharmacophore hypothesis should be provided in `.posp` format, which includes the type of pharmacophore feature in the first column and 3D coordinates in the last three columns. See `data/1z92_IL2R.posp` for an example.
+A pharmacophore hypothesis should be provided in `.posp` format, which includes the type of pharmacophore feature in the first column and spatial coordinates in the last three columns. See `1z92_IL2R.posp` in `Test_PPI/IL-2:IL-2R/`  for an example.
 
 **Supported pharmacophore types**:
 - AROM: aromatic ring
@@ -68,9 +70,9 @@ positional arguments:
 
 The output is a `.posp` file containing the pharmacophore hypotesis. 
 
-For example, to generate a pharmacophore hypothesis for the demo input (Arg36, Leu42, and Hie120 on IL2R of the IL2/IL2R complex, PDB ID: 1Z92), use the following command:
+For example, to generate a pharmacophore hypothesis for the demo input (Arg36, Leu42, and Hie120 on IL-2R of the IL-2/IL-2R complex, PDB ID: 1Z92), use the following command:
 ```bash
-python pharma_extract.py data/1z92_IL2R.pdb ARG 36 LEU 42 HIE 120 data/1z92_IL2R.posp
+python pharma_extract.py ./Test_PPI/IL-2:IL-2R/1z92_IL2R.pdb ARG 36 LEU 42 HIE 120 ./Test_PPI/IL-2:IL-2R/1z92_IL2R.posp
 ```
 
 ### Generate
@@ -101,7 +103,7 @@ The output is a `.txt` file containing the generated SMILES strings. Using a sin
 
 To run generation on the demo input:
 ```bash
-python generate.py data/1z92_IL2R.posp results pretrained_model/epoch32.pth pretrained_model --n_mol 1000 --filter --device cuda:0 --seed 123
+python generate.py ./Test_PPI/IL-2:IL-2R/1z92_IL2R.posp results pretrained_model/epoch32.pth pretrained_model --n_mol 1000 --filter --device cuda:0 --seed 123
 ```
 
 
