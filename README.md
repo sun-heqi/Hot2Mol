@@ -2,23 +2,12 @@
 # Hot2Mol
 
 
-This is a repository of our paper "De novo design of drug-like protein-protein interaction inhibitors using hot-spot-guided generative deep learning". 
+This is a repository of our paper "Target-specific design of drug-like PPI inhibitors via hot-spot-guided generative deep learning". 
 
-Protein-protein interactions (PPIs) play crucial roles in cellular functions and represent compelling targets for drug discovery. However, developing effective small molecule inhibitors for PPIs is challenging due to their flat and wide interfaces. To address this challenge, we propose Hot2Mol, a deep learning framework designed to generate PPI inhibitors by mimicking the pharmacophores of hot-spot residues, thereby achieving high affinity and selectivity.
+Protein–protein interactions (PPIs) are vital therapeutic targets. However, the large and flat PPI interfaces pose challenges for the development of small-molecule inhibitors. Traditional computer-aided drug design approaches typically rely on pre-existing libraries or expert knowledge, limiting the exploration of novel chemical spaces needed for effective PPI inhibition. To overcome these limitations, we introduce Hot2Mol, a deep learning framework for the de novo design of drug-like, target-specific PPI inhibitors. Hot2Mol generates small molecules by mimicking the pharmacophoric features of hot-spot residues, enabling precise targeting of PPI interfaces without the need for bioactive ligands. 
 
 
 ![model_framework.png](pics%2Fmodel_framework.png)
-
-## Requirements
-- python==3.8
-- torch==1.12.1+cu116
-- rdkit==2023.9.2
-- dgl-cuda11.1=0.9.1
-- fairseq==0.10.2
-- numpy==1.23.0
-- pandas==2.0.3
-- tqdm==4.65.0
-- einops==0.7.0
 
 
 ### Creating a new environment in conda
