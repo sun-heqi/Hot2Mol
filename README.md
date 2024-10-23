@@ -113,7 +113,6 @@ The output is a `.txt` file containing the generated SMILES strings. Using a sin
 
 To run generation on the demo input:
 ```bash
-mkdir ./results
 python generate.py data/1z92_IL2R.posp results pretrained_model/epoch32.pth pretrained_model --n_mol 1000 --filter --device cuda:0 --seed 123
 ```
 
