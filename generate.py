@@ -94,7 +94,7 @@ if __name__ == '__main__':
     model.to(args.device)
 
     for file in files:
-        output_path = args.output_dir / f'{file.stem}_result.txt'
+        output_path = args.output_dir / f'{file.stem}_{args.n_mol}_result.txt'
 
         g = load_phar_file(file)
 
