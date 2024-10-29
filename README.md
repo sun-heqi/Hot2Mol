@@ -122,7 +122,7 @@ This implementation is inspired and partially built on earlier works [1], [2].
 * [2] Yoshida, Shuhei, et al. "Peptide-to-small molecule: a pharmacophore-guided small molecule lead generation strategy from high-affinity macrocyclic peptides." Journal of Medicinal Chemistry 65.15 (2022): 10655-10673.   
 
 ## Citation
-
+```
 @article{li2023target,
   title={Target-specific design of drug-like PPI inhibitors via hot-spot-guided generative deep learning},
   author={Li, Jiayi and Zhang, Yufang and Lin, Shenggeng and Chen, Junwei and Tan, Hong and Wang, Ruixuan and Mao, Xueying and Zhao, Jianwei and Li, Rongpei and Xiong, Yi and Wei, Dong-qing},
@@ -130,4 +130,4 @@ This implementation is inspired and partially built on earlier works [1], [2].
   journal={Research Square},
   doi={10.21203/rs.3.rs-5286599/v1}
 }
-
+```
